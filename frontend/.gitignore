@@ -1,0 +1,7 @@
+
+# Private Node Modules
+node_modules/
+
+# Environments
+.env
+.env.production

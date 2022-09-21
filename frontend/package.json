@@ -1,0 +1,40 @@
+{
+  "name": "laghata-frontend",
+  "version": "0.1.0",
+  "dependencies": {
+    "@date-io/date-fns": "^2.15.0",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@mui/material": "^5.10.0",
+    "buffer": "^6.0.3",
+    "date-fns": "^2.29.2",
+    "dotenv": "^16.0.1",
+    "framer-motion": "^7.2.0",
+    "hamburger-react": "^2.5.0",
+    "react": "^18.2.0",
+    "react-date-range": "^1.4.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "react-loader-spinner": "^5.2.1",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "socket.io-client": "^4.5.1",
+    "styled-components": "^5.3.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
