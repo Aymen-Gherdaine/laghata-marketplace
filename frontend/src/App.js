@@ -41,14 +41,14 @@ const App = () => {
     <>
       <GlobalStyle />
 
-      <Modal />
+      {/* <Modal /> */}
       <Header />
 
       <Suspense
         fallback={
-          <div>
+          <>
             <LoadingSpinner />
-          </div>
+          </>
         }
       >
         <Routes>

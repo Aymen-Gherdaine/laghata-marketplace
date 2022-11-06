@@ -3,64 +3,63 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { scrollToTop } from "../utils";
 import { useUser } from "../hooks/useUser";
+import useClickOutside from "../hooks/useClickOutside";
 
-const NavBottom = () => {
+const NavBottom = ({}) => {
   // get information about current user from useUser hook
   const user = useUser();
 
   return (
-    <>
-      <NavBottomEl>
-        <Ul>
-          <li>
-            <NavLink
-              to="/home"
-              style={({ isActive }) => {
-                return isActive
-                  ? { color: "#f8f8f8", borderBottom: "2px solid white " }
-                  : { color: "white" };
-              }}
-              onClick={() => scrollToTop()}
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/categories"
-              style={({ isActive }) => {
-                return isActive
-                  ? { color: "#f8f8f8", borderBottom: "2px solid white " }
-                  : { color: "white" };
-              }}
-              onClick={() => scrollToTop()}
-            >
-              Categories
-            </NavLink>
-          </li>
+    <NavBottomContainer>
+      <Ul>
+        <li>
+          <NavLink
+            to="/home"
+            style={({ isActive }) => {
+              return isActive
+                ? { color: "#f8f8f8", borderBottom: "2px solid white " }
+                : { color: "white" };
+            }}
+            onClick={() => scrollToTop()}
+          >
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/categories"
+            style={({ isActive }) => {
+              return isActive
+                ? { color: "#f8f8f8", borderBottom: "2px solid white " }
+                : { color: "white" };
+            }}
+            onClick={() => scrollToTop()}
+          >
+            Categories
+          </NavLink>
+        </li>
 
-          {user && (
-            <>
-              <li>
-                <NavLink to="/add-listing" onClick={() => scrollToTop()}>
-                  Add listing
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/profile" onClick={() => scrollToTop()}>
-                  Profile
-                </NavLink>
-              </li>
-            </>
-          )}
-        </Ul>
-      </NavBottomEl>
-    </>
+        {user && (
+          <>
+            <li>
+              <NavLink to="/add-listing" onClick={() => scrollToTop()}>
+                Add listing
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/profile" onClick={() => scrollToTop()}>
+                Profile
+              </NavLink>
+            </li>
+          </>
+        )}
+      </Ul>
+    </NavBottomContainer>
   );
 };
 
-//style
-const NavBottomEl = styled.nav`
+// Navigation bottom style
+const NavBottomContainer = styled.nav`
   background: #000000;
   border-bottom: 1px solid #091d21;
   border-top: 1px solid #091d21;
