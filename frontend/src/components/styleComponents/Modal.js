@@ -80,7 +80,7 @@ const Modal = () => {
       setSubscribe(false);
       resetEmailInput();
       resetPhoneNumber();
-    }, 1000);
+    }, 5000);
 
     // window.clearTimeout(timeToShowModal);
     return () => clearTimeout(timeToShowModal);
@@ -166,11 +166,12 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   background: rgba(49, 49, 49, 0.8);
-  z-index: 1;
+  z-index: 12;
+  height: 100%;
 `;
 
 const ModalEl = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -182,6 +183,10 @@ const ModalEl = styled.div`
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+  @media screen and (max-width: 668px) {
+    height: 350px;
+  }
 `;
 
 const ModalContent = styled.div`
@@ -202,6 +207,19 @@ const ModalContent = styled.div`
     text-align: center;
     margin-bottom: 1rem;
     font-weight: 200;
+  }
+
+  @media screen and (max-width: 668px) {
+    margin-top: 0.5rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+      margin-bottom: 0.3rem;
+    }
   }
 `;
 
@@ -249,6 +267,16 @@ const Form = styled.form`
     font-size: 1rem;
     border: 1px solid #cc0000;
   }
+
+  @media screen and (max-width: 668px) {
+    gap: 0.7rem;
+
+    .input,
+    .error {
+      font-size: 0.6rem;
+      padding: 0.6rem 0.5rem;
+    }
+  }
 `;
 
 const Button = styled.button`
@@ -264,6 +292,11 @@ const Button = styled.button`
   &:hover {
     background: white;
     color: black;
+  }
+
+  @media screen and (max-width: 668px) {
+    padding: 0.6rem 0.5rem;
+    font-size: 0.6rem;
   }
 `;
 

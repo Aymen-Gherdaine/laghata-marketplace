@@ -20,6 +20,7 @@ root.render(
           <CurrentUserListingProvider>
             <BookingContextProvider>
               <App />
+
               <ReactQueryDevtools initialIsOpen={false} />
             </BookingContextProvider>
           </CurrentUserListingProvider>

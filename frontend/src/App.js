@@ -38,9 +38,9 @@ const App = () => {
     <>
       <GlobalStyle />
 
-      <Modal />
-
       <Header />
+
+      <Modal />
 
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>

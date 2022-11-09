@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink as Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { scrollToTop } from "../../utils/utils";
 import {
   FaInstagram,
   FaFacebook,
@@ -15,7 +16,7 @@ const Footer = () => {
     <FooterContainer>
       <FooterContentWrapper>
         <FooterLogo>
-          <NavLink to="/">
+          <NavLink to="/" onClick={() => scrollToTop()}>
             <img src={logo} alt="" width="130px" />
           </NavLink>
           <SocialMediaIcons className="icon">
@@ -39,19 +40,31 @@ const Footer = () => {
         <FooterMenu>
           <CategoryMenu>
             <CategoriesTitle>Categories</CategoriesTitle>
-            <NavLink to="/category/surf">Surf</NavLink>
+            <NavLink to="/category/surf" onClick={() => scrollToTop()}>
+              Surf
+            </NavLink>
 
-            <NavLink to="/category/bike">Bike</NavLink>
+            <NavLink to="/category/bike" onClick={() => scrollToTop()}>
+              Bike
+            </NavLink>
 
-            <NavLink to="/category/snow">Snow</NavLink>
+            <NavLink to="/category/snow" onClick={() => scrollToTop()}>
+              Snow
+            </NavLink>
           </CategoryMenu>
           <QuikMenu>
             <QuikMenuTitle>Quick links</QuikMenuTitle>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/" onClick={() => scrollToTop()}>
+              Home
+            </NavLink>
 
-            <NavLink to="/categories">Categories</NavLink>
+            <NavLink to="/categories" onClick={() => scrollToTop()}>
+              Categories
+            </NavLink>
 
-            <NavLink to="/about">About Us</NavLink>
+            <NavLink to="/about" onClick={() => scrollToTop()}>
+              About Us
+            </NavLink>
           </QuikMenu>
         </FooterMenu>
       </FooterContentWrapper>

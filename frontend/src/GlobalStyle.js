@@ -14,6 +14,7 @@ export default createGlobalStyle`
  
 body{
   overflow-x: hidden;
+  position: relative;
 }
 
 body::-webkit-scrollbar{
