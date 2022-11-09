@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Circles } from "react-loader-spinner";
 import { VscClose } from "react-icons/vsc";
-import { scrollToTop } from "../../utils";
+import { scrollToTop } from "../../../utils/utils";
 
 // upload pictures form componenent
 const UploadPhotosForm = ({ modifyIndex, handleReturn, listingData }) => {

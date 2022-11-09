@@ -1,14 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { scrollToTop } from "../utils";
-import { useUser } from "../hooks/useUser";
-import useClickOutside from "../hooks/useClickOutside";
+import { scrollToTop } from "../../utils/utils";
 
-const NavBottom = ({}) => {
-  // get information about current user from useUser hook
-  const user = useUser();
-
+const NavBottom = ({ user }) => {
   return (
     <NavBottomContainer>
       <Ul>

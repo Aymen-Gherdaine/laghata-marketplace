@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { scrollToTop } from "../../utils";
+import { scrollToTop } from "../../../utils/utils";
 
 // product info form component
 const ProductInfoForm = ({ modifyIndex, handleReturn, currentListingData }) => {

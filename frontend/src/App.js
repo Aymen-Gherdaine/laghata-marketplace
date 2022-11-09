@@ -1,39 +1,36 @@
 import GlobalStyle from "./GlobalStyle";
-import React, { Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
+
 import Modal from "./components/styleComponents/Modal";
 import LoadingSpinner from "./components/styleComponents/LoadingSpinner";
 
 import Header from "./components/header/Header";
-import Home from "./components/pages/Home";
+import Home from "./pages/Home";
 import SignUp from "./components/auth/SignUp";
 import LogIn from "./components/auth/LogIn";
 import Footer from "./components/footer/Footer";
+import Categories from "./pages/Categories";
+import SubCategory from "./pages/SubCategory";
+import Category from "./pages/Category";
 
 // implementing lazy loading to some route
-const Categories = React.lazy(() => import("./components/pages/Categories"));
-const Category = React.lazy(() => import("./components/pages/Category"));
-const SubCategory = React.lazy(() => import("./components/pages/SubCategory"));
-const Profile = React.lazy(() => import("./components/pages/Profile"));
-const AddListingForm = React.lazy(() =>
+const Profile = lazy(() => import("./pages/Profile"));
+const AddListingForm = lazy(() =>
   import("./components/Listing/addListing/AddListingForm")
 );
-const UserListing = React.lazy(() => import("./components/pages/UserListing"));
-const EditListing = React.lazy(() =>
+const UserListing = lazy(() => import("./pages/UserListing"));
+const EditListing = lazy(() =>
   import("./components/Listing/editListing/EditListing")
 );
-const Listing = React.lazy(() => import("./components/pages/Listing"));
-const Renter = React.lazy(() => import("./components/pages/Renter"));
-const BookingPage = React.lazy(() => import("./components/pages/BookingPage"));
-const AdminPage = React.lazy(() => import("./components/chatSystem/AdminPage"));
-const ForgotPassword = React.lazy(() =>
-  import("./components/auth/ForgotPassword")
-);
-const ResetPassword = React.lazy(() =>
-  import("./components/auth/ResetPassword")
-);
-const EmailVerificationPage = React.lazy(() =>
-  import("./components/pages/EmailVerificationPage")
+const Listing = lazy(() => import("./pages/Listing"));
+const Renter = lazy(() => import("./pages/Renter"));
+const BookingPage = lazy(() => import("./pages/BookingPage"));
+const AdminPage = lazy(() => import("./components/chatSystem/AdminPage"));
+const ForgotPassword = lazy(() => import("./components/auth/ForgotPassword"));
+const ResetPassword = lazy(() => import("./components/auth/ResetPassword"));
+const EmailVerificationPage = lazy(() =>
+  import("./pages/EmailVerificationPage")
 );
 
 const App = () => {
@@ -41,16 +38,11 @@ const App = () => {
     <>
       <GlobalStyle />
 
-      {/* <Modal /> */}
+      <Modal />
+
       <Header />
 
-      <Suspense
-        fallback={
-          <>
-            <LoadingSpinner />
-          </>
-        }
-      >
+      <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />

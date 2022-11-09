@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import logoBlack from "../../assets/logoBlack.png";
-import { scrollToTop } from "../utils";
+import { scrollToTop } from "../../utils/utils";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

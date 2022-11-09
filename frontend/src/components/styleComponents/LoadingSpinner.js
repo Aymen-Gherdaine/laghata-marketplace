@@ -11,7 +11,7 @@ const LoadingSpinner = () => {
 
 // style
 const Container = styled.div`
-  background: black;
+  background: #000;
   display: flex;
   align-items: flex-start;
   padding-top: 250px;

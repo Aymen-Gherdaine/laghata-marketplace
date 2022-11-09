@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Circles } from "react-loader-spinner";
-import { scrollToTop } from "../../utils";
+import { scrollToTop } from "../../../utils/utils";
 import { VscClose } from "react-icons/vsc";
 
 // upload pictures form componenent

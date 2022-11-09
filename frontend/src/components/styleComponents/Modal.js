@@ -80,7 +80,7 @@ const Modal = () => {
       setSubscribe(false);
       resetEmailInput();
       resetPhoneNumber();
-    }, 15000);
+    }, 1000);
 
     // window.clearTimeout(timeToShowModal);
     return () => clearTimeout(timeToShowModal);

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate, NavLink } from "react-router-dom";
 import useClickOutside from "../../hooks/useClickOutside";
 import { FiSettings, FiList, FiInbox } from "react-icons/fi";
-import { scrollToTop } from "../../utils";
+import { scrollToTop } from "../../../utils/utils";
 
 const DropDownMenu = ({ setOpen }) => {
   // hook to redirect the user to a specific page

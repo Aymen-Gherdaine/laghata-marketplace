@@ -1,21 +1,19 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { scrollToTop } from "../../utils";
-import { useUser } from "../../hooks/useUser";
+import { NavLink } from "react-router-dom";
+import { scrollToTop } from "../../../utils/utils";
 import userDefault from "../../../assets/user.png";
 import { FiUser } from "react-icons/fi";
 import { MdNotifications } from "react-icons/md";
 import DropDownMenu from "../navTop/DropDownMenu";
 import { ChatContext } from "../../context/ChatContext";
 
-const RightNavigation = ({ setOpen, open }) => {
-  // get user information useUser Hook
-  const user = useUser();
-
+const RightNavigation = ({ setOpen, open, width, user }) => {
   // getting chat information from the chat context
   const { notification, setNotification, openChat, setOpenChat } =
     useContext(ChatContext);
 
+  console.log(user);
   return (
     <RightNav>
       {user ? (

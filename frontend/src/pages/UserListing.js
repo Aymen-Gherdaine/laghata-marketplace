@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+// import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import { CurrentUserListingContext } from "../context/CurrentUserListingContext";
+import { CurrentUserListingContext } from "../components/context/CurrentUserListingContext";
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import { Circles } from "react-loader-spinner";
-import Dialog from "../styleComponents/Dialog";
-import { scrollToTop } from "../utils";
-import { useUser } from "../hooks/useUser";
+import Dialog from "../components/styleComponents/Dialog";
+import { scrollToTop } from "../utils/utils";
+import { useUser } from "../components/hooks/useUser";
 
 const UserListing = () => {
   // getting informations from user listing context

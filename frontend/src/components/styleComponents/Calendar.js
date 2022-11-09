@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { DateRange } from "react-date-range";
 import format from "date-fns/format";
-import { getDatesInRange } from "../utils";
+import { getDatesInRange } from "../../utils/utils";
 import useClickOutside from "../hooks/useClickOutside";
 
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 import { BookingContext } from "../context/BookingContext";
-import { useContext } from "react";
 
 const Calendar = ({ reservations }) => {
   const { dateRange, setDateRange } = useContext(BookingContext);

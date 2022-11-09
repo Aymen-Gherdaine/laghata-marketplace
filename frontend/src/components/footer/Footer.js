@@ -13,80 +13,130 @@ import {
 const Footer = () => {
   return (
     <FooterContainer>
-      <CategoryMenu>
-        <CategoriesTitle>Categories</CategoriesTitle>
-        <NavLink to="/category/surf">Surf</NavLink>
+      <FooterContentWrapper>
+        <FooterLogo>
+          <NavLink to="/">
+            <img src={logo} alt="" width="130px" />
+          </NavLink>
+          <SocialMediaIcons className="icon">
+            <a href="#">
+              <FaInstagram className="icon" />
+            </a>
+            <a href="#">
+              <FaPinterest className="icon" />
+            </a>
+            <a href="#">
+              <FaFacebook className="icon" />
+            </a>
+            <a href="#">
+              <FaTwitter className="icon" />
+            </a>
+            <a href="#">
+              <FaYoutube className="icon" />
+            </a>
+          </SocialMediaIcons>
+        </FooterLogo>
+        <FooterMenu>
+          <CategoryMenu>
+            <CategoriesTitle>Categories</CategoriesTitle>
+            <NavLink to="/category/surf">Surf</NavLink>
 
-        <NavLink to="/category/bike">Bike</NavLink>
+            <NavLink to="/category/bike">Bike</NavLink>
 
-        <NavLink to="/category/snow">Snow</NavLink>
-      </CategoryMenu>
-      <FooterLogo>
-        <NavLink to="/">
-          <img src={logo} alt="" width="130px" />
-        </NavLink>
-        <SocialMediaIcons className="icon">
-          <a href="#">
-            <FaInstagram className="icon" />
-          </a>
-          <a href="#">
-            <FaPinterest className="icon" />
-          </a>
-          <a href="#">
-            <FaFacebook className="icon" />
-          </a>
-          <a href="#">
-            <FaTwitter className="icon" />
-          </a>
-          <a href="#">
-            <FaYoutube className="icon" />
-          </a>
-        </SocialMediaIcons>
-      </FooterLogo>
-      <QuikMenu>
-        <QuikMenuTitle>Quick links</QuikMenuTitle>
-        <NavLink to="/">Home</NavLink>
+            <NavLink to="/category/snow">Snow</NavLink>
+          </CategoryMenu>
+          <QuikMenu>
+            <QuikMenuTitle>Quick links</QuikMenuTitle>
+            <NavLink to="/">Home</NavLink>
 
-        <NavLink to="/categories">Categories</NavLink>
+            <NavLink to="/categories">Categories</NavLink>
 
-        <NavLink to="/about">About Us</NavLink>
-      </QuikMenu>
+            <NavLink to="/about">About Us</NavLink>
+          </QuikMenu>
+        </FooterMenu>
+      </FooterContentWrapper>
+      <FooterCopywriteContainer>
+        <FooterCopywriteWrapper>
+          <FooterCopywriteParagraph>
+            © 2022 laghata® | Great Adventure Equipement.
+          </FooterCopywriteParagraph>
+        </FooterCopywriteWrapper>
+      </FooterCopywriteContainer>
     </FooterContainer>
   );
 };
 
 // Footer style
-const FooterContainer = styled.div`
+const FooterContainer = styled.footer`
   bottom: 0;
   width: 100%;
   background-color: #000;
-  height: 220px;
+  height: 380px;
+
+  @media screen and (max-width: 668px) {
+    height: 100%;
+    padding: 2rem;
+  }
+`;
+
+const FooterContentWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-bottom: 1.5rem;
+
+  @media screen and (max-width: 668px) {
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  @media screen and (min-width: 668px) {
+    width: 80%;
+  }
 `;
 
 const FooterLogo = styled.div`
-  flex: 0.3;
+  height: 100%;
+  flex: 0.4;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+
+  @media screen and (max-width: 668px) {
+    align-items: center;
+  }
+`;
+
+const FooterMenu = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
+  justify-content: flex-start;
+  flex: 0.6;
+  gap: 8rem;
+  height: 100%;
+  width: 100%;
+
+  @media screen and (max-width: 668px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
 `;
 
 const CategoryMenu = styled.div`
-  flex: 0.4;
   display: flex;
-  padding-left: 20px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 8px;
-
-  @media screen and (min-width: 1300px) {
-    padding-left: 6rem;
-  }
+  gap: 0.8rem;
 `;
+
 const NavLink = styled(Link)`
   color: #fff;
   text-decoration: none;
@@ -99,13 +149,12 @@ const NavLink = styled(Link)`
 `;
 
 const QuikMenu = styled.div`
-  flex: 0.4;
   display: flex;
   padding-right: 20px;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
-  gap: 8px;
+  gap: 0.8rem;
 
   @media screen and (min-width: 1300px) {
     padding-right: 6rem;
@@ -144,5 +193,28 @@ const SocialMediaIcons = styled.div`
     color: rgb(175, 169, 170);
     opacity: 0.3;
   }
+`;
+
+const FooterCopywriteContainer = styled.div`
+  background-color: #000;
+`;
+
+const FooterCopywriteWrapper = styled.div`
+  max-width: 1300px;
+  border-top: 1px solid rgb(216 223 225/1);
+  padding: 2rem 0;
+  margin: 0 auto;
+
+  @media screen and (min-width: 668px) {
+    width: 80%;
+  }
+`;
+
+const FooterCopywriteParagraph = styled.div`
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+  text-align: center;
+  color: #f5f6f7;
 `;
 export default Footer;

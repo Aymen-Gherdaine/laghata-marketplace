@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import profilepage from "../../assets/profilepage.jpg";
-import Item from "../Item";
-import Chat from "../chatSystem/Chat";
-import LoadingSpinner from "../styleComponents/LoadingSpinner";
-import { ChatContext } from "../context/ChatContext";
-import { useUser } from "../hooks/useUser";
+import profilepage from "../assets/profilepage.jpg";
+import Item from "../components/Item";
+import Chat from "../components/chatSystem/Chat";
+import LoadingSpinner from "../components/styleComponents/LoadingSpinner";
+import { ChatContext } from "../components/context/ChatContext";
+import { useUser } from "../components/hooks/useUser";
 
 const Renter = () => {
   const { openChat, setOpenChat } = useContext(ChatContext);

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import surf1 from "../../assets/surf1.jpg";
+import surf1 from "../assets/surf1.jpg";
 import styled from "styled-components";
-import LoadingSpinner from "../styleComponents/LoadingSpinner";
-import { BookingContext } from "../context/BookingContext";
+import LoadingSpinner from "../components/styleComponents/LoadingSpinner";
+import { BookingContext } from "../components/context/BookingContext";
 import { useContext } from "react";
 import format from "date-fns/format";
 import { Circles } from "react-loader-spinner";

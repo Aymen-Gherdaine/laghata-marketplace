@@ -5,12 +5,16 @@ import logo from "../../assets/logo.png";
 import NavBottom from "./NavBottom";
 import RightNavigation from "./navTop/RightNavigation";
 import LeftNavigation from "./navTop/LeftNavigation";
+import { useUser } from "../hooks/useUser";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
 
+  // get user information useUser Hook
+  const user = useUser();
+  console.log(user);
   // toggle nav on click
   const toggleNav = () => {
     setToggleMenu(!toggleMenu);
@@ -41,9 +45,14 @@ const Header = () => {
           </NavLink>
         </Logo>
 
-        <RightNavigation setOpen={setOpen} open={open} />
+        <RightNavigation
+          setOpen={setOpen}
+          open={open}
+          width={width}
+          user={user}
+        />
       </NavTop>
-      {(toggleMenu || width > 700) && <NavBottom />}
+      {(toggleMenu || width > 700) && <NavBottom user={user} />}
     </HeaderContainer>
   );
 };

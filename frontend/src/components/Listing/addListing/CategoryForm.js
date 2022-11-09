@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { scrollToTop } from "../../utils";
+import { scrollToTop } from "../../../utils/utils";
 
 // The form that handle the selecting of category and subCategory
 const CategoryForm = ({ modifyIndex, listingData }) => {

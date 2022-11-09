@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import LoadingSpinner from "../styleComponents/LoadingSpinner";
+import LoadingSpinner from "../components/styleComponents/LoadingSpinner";
 import styled from "styled-components";
-import logoBlack from "../../assets/logoBlack.png";
-import { scrollToTop } from "../utils";
+import logoBlack from "../assets/logoBlack.png";
+import { scrollToTop } from "../utils/utils";
 
 const EmailVerificationPage = () => {
   const [loading, setLoading] = useState(false);
@@ -52,40 +52,38 @@ const EmailVerificationPage = () => {
           <LoadingSpinner />
         </>
       ) : (
-        <>
-          <VerificationWrapper>
-            <LogoContainer>
-              <Logo src={logoBlack} alt="logoBlack" />
-            </LogoContainer>
-            {success === true ? (
+        <VerificationWrapper>
+          <LogoContainer>
+            <Logo src={logoBlack} alt="logoBlack" />
+          </LogoContainer>
+          {success === true ? (
+            <>
+              <Title>Thanks for verifying your email.</Title>
+              <Button
+                onClick={() => {
+                  navigate("/"), scrollToTop();
+                }}
+              >
+                Go To Home Page
+              </Button>
+            </>
+          ) : (
+            success === false && (
               <>
-                <Title>Thanks for verifying your email.</Title>
+                <Title>
+                  Something went wrong while trying to verify you email.
+                </Title>
                 <Button
                   onClick={() => {
-                    navigate("/"), scrollToTop();
+                    navigate("/signup"), scrollToTop();
                   }}
                 >
-                  Go To Home Page
+                  Back To SignUp Page
                 </Button>
               </>
-            ) : (
-              success === false && (
-                <>
-                  <Title>
-                    Something went wrong while trying to verify you email.
-                  </Title>
-                  <Button
-                    onClick={() => {
-                      navigate("/signup"), scrollToTop();
-                    }}
-                  >
-                    Back To SignUp Page
-                  </Button>
-                </>
-              )
-            )}
-          </VerificationWrapper>
-        </>
+            )
+          )}
+        </VerificationWrapper>
       )}
     </VerificationContainer>
   );

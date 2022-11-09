@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { Circles } from "react-loader-spinner";
 import ImageSlider from "../../styleComponents/ImageSlider";
-import { scrollToTop } from "../../utils";
+import { scrollToTop } from "../../../utils/utils";
 
 const CardEnd = ({ listingData, handleReturn }) => {
   const navigate = useNavigate();

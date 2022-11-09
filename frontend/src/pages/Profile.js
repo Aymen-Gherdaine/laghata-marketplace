@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Circles } from "react-loader-spinner";
-import { useUser } from "../hooks/useUser";
-import LoadingSpinner from "../styleComponents/LoadingSpinner";
+import { useUser } from "../components/hooks/useUser";
+import { fetchUserEmail } from "../utils/apiFetchFunctions";
+import userDefault from "../assets/user.png";
 
 const Profile = () => {
-  const [email, setEmail] = useState();
   const [loading, setLoading] = useState(false);
 
   // state for updating user info
@@ -27,37 +28,15 @@ const Profile = () => {
   // get user info from useUser hook
   const user = useUser();
 
-  //fetch user info
-  useEffect(() => {
-    // function that handle the fetch of user info from our db
-    const getUserInfo = async () => {
-      setLoading(true);
-
-      try {
-        if (user?._id) {
-          const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_URL}/api/user/${user?._id}`
-          );
-
-          const responseJson = await response.json();
-
-          if (responseJson) {
-            setEmail(responseJson.data.email);
-
-            setLoading(false);
-          } else {
-            setLoading(false);
-          }
-        }
-      } catch (error) {
-        console.log(error.stack);
-        setLoading(false);
-      }
-
-      setLoading(false);
-    };
-    getUserInfo();
-  }, []);
+  //fetch user email
+  const { data: email } = useQuery(
+    ["userEmail", user?._id],
+    () => fetchUserEmail(user?._id),
+    {
+      staleTime: 5000,
+      enabled: !!user?._id,
+    }
+  );
 
   // upload picture to cloudinary
   const postPictureToCloudinary = async (picture) => {
@@ -155,116 +134,120 @@ const Profile = () => {
 
   return (
     <ProfileContainer>
-      {user?.username && user?.picture && email && !loading ? (
-        <Wrapper>
-          <Details>
-            {!user?.isVerified && (
-              <VerifyEmail>
-                You need to verify your email before making any changes
-              </VerifyEmail>
+      {!user?.isVerified && (
+        <VerifyEmail>
+          You need to verify your email before making any changes
+        </VerifyEmail>
+      )}
+      {user && email ? (
+        <Details>
+          <Header>
+            {user.picture ? (
+              <Img src={user.picture} alt="profile" />
+            ) : (
+              <Img src={userDefault} alt="User profile picture" />
             )}
-            <Header>
-              {user.picture && <Img src={user.picture} alt="profile" />}
-              <div>
-                <UserName>{user?.username}</UserName>
-                <Email>{email}</Email>
-              </div>
-            </Header>
-            <UpdateInfo>
-              <form onSubmit={updateHandler}>
-                <UpdateTitle>Update Info:</UpdateTitle>
+            <div>
+              <UserName>{user?.username}</UserName>
+              <Email>{email}</Email>
+            </div>
+          </Header>
+          <UpdateInfo>
+            <form onSubmit={updateHandler}>
+              <UpdateTitle>Update Info:</UpdateTitle>
 
-                <InputsDiv>
-                  <Input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    onChange={handleChange}
-                    required
-                  />
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                    required
-                  />
-                  <Input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    onChange={handleChange}
-                    required
-                  />
-                  {passwordHasError && (
-                    <Span>Please check that your passwords match</Span>
+              <InputsDiv>
+                <Input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={handleChange}
+                  required
+                />
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  required
+                />
+                <Input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  onChange={handleChange}
+                  required
+                />
+                {passwordHasError && (
+                  <Span>Please check that your passwords match</Span>
+                )}
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  onChange={handleChange}
+                  required
+                />
+                <InputPicture
+                  type="file"
+                  name="file"
+                  id="file"
+                  className="inputfile"
+                  accept="/image/*"
+                  onChange={(e) => {
+                    postPictureToCloudinary(e.target.files[0]);
+                  }}
+                />
+                <Label htmlFor="file">Choose a picture</Label>
+              </InputsDiv>
+              {pictureLoading ? (
+                <Circles
+                  height="30"
+                  width="30"
+                  color="#54cbe3"
+                  ariaLabel="circles-loading"
+                  wrapperClass="spinnerPicture"
+                  visible={true}
+                />
+              ) : (
+                updateInfo.picture && (
+                  <ImgContainer>
+                    <UpdateImg src={updateInfo.picture} alt="profile Picture" />
+                  </ImgContainer>
+                )
+              )}
+              {!user?.isVerified ? (
+                <button disabled={user?.isVerified} className="disabledBtn">
+                  Submit
+                </button>
+              ) : (
+                <Button type="submit">
+                  {loading ? (
+                    <Circles
+                      height="30"
+                      width="30"
+                      color="#54cbe3"
+                      ariaLabel="circles-loading"
+                      wrapperClass="spinner"
+                      visible={true}
+                    />
+                  ) : (
+                    "Submit"
                   )}
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    onChange={handleChange}
-                    required
-                  />
-                  <InputPicture
-                    type="file"
-                    name="file"
-                    id="file"
-                    className="inputfile"
-                    accept="/image/*"
-                    onChange={(e) => {
-                      postPictureToCloudinary(e.target.files[0]);
-                    }}
-                  />
-                  <Label htmlFor="file">Choose a picture</Label>
-                </InputsDiv>
-                {pictureLoading ? (
-                  <Circles
-                    height="30"
-                    width="30"
-                    color="#54cbe3"
-                    ariaLabel="circles-loading"
-                    wrapperClass="spinnerPicture"
-                    visible={true}
-                  />
-                ) : (
-                  updateInfo.picture && (
-                    <ImgContainer>
-                      <UpdateImg
-                        src={updateInfo.picture}
-                        alt="profile Picture"
-                      />
-                    </ImgContainer>
-                  )
-                )}
-                {!user?.isVerified ? (
-                  <button disabled={user?.isVerified} className="disabledBtn">
-                    Submit
-                  </button>
-                ) : (
-                  <Button type="submit">
-                    {loading ? (
-                      <Circles
-                        height="30"
-                        width="30"
-                        color="#54cbe3"
-                        ariaLabel="circles-loading"
-                        wrapperClass="spinner"
-                        visible={true}
-                      />
-                    ) : (
-                      "Submit"
-                    )}
-                  </Button>
-                )}
-              </form>
-            </UpdateInfo>
-          </Details>
-        </Wrapper>
+                </Button>
+              )}
+            </form>
+          </UpdateInfo>
+        </Details>
       ) : (
-        <>
-          <LoadingSpinner />
-        </>
+        <Circles
+          height="35"
+          width="35"
+          color="#010101"
+          ariaLabel="circles-loading"
+          wrapperClass="spinner"
+          visible={true}
+        />
       )}
     </ProfileContainer>
   );
@@ -275,31 +258,41 @@ const ProfileContainer = styled.div`
   min-height: 100vh;
   padding-bottom: 150px;
   position: relative;
-`;
-const Wrapper = styled.div`
-  display: flex;
+
+  .spinner {
+    margin-top: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const VerifyEmail = styled.div`
   border: 1px solid;
-  width: 80%;
-  max-width: 900px;
+  width: fit-content;
   padding: 10px;
   border-radius: 5px;
   background: #f5f0ed;
-  margin-top: 20px;
+  margin: 20px auto 0 auto;
   font-weight: 500;
 `;
 
 const Details = styled.div`
-  max-width: 900px;
-  min-width: 400px;
+  width: 70%;
+  max-width: 1300px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 3rem;
+  align-items: flex-start;
   justify-content: center;
-  margin: 0 auto;
+  margin: 2.5rem auto 0 auto;
   padding: 5px 10px;
+
+  @media screen and (max-width: 1200px) {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    align-items: center;
+  }
 `;
 
 const Header = styled.div`
@@ -343,7 +336,6 @@ const Img = styled.img`
 const UpdateInfo = styled.div`
   border-radius: 10px;
   border: 1px solid;
-  width: 100%;
   height: fit-content;
   margin-bottom: 15px;
   margin-top: 25px;
@@ -352,6 +344,12 @@ const UpdateInfo = styled.div`
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   flex-direction: column;
   gap: 1.5rem;
+  width: 80%;
+
+  form {
+    width: 80%;
+    margin: 0 auto;
+  }
 
   .spinnerPicture,
   .spinner {
@@ -375,10 +373,11 @@ const UpdateInfo = styled.div`
     color: black;
   }
 
-  @media screen and (max-width: 700px) {
-    width: 85%;
+  @media screen and (min-width: 700px) {
+    max-width: 400px;
   }
 `;
+
 const UpdateTitle = styled.h3`
   display: flex;
   align-items: center;
@@ -393,11 +392,6 @@ const InputsDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 1.5rem;
-  width: 350px;
-
-  @media screen and (max-width: 700px) {
-    width: 250px;
-  }
 `;
 
 const Input = styled.input`

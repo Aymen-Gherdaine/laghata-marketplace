@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import logoBlack from "../../assets/logoBlack.png";
-import { scrollToTop } from "../utils";
+import { scrollToTop } from "../../utils/utils";
 import { Circles } from "react-loader-spinner";
 
 const SignUp = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { scrollToTop } from "./utils";
+import { scrollToTop } from "../utils/utils";
 
 // Item (single listing) component
 const Item = ({ listing, renters }) => {
