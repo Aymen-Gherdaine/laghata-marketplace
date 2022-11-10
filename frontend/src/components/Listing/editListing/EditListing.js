@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import CardBegin from "./CardBegin";
@@ -9,12 +9,12 @@ import ProductInfoForm from "./ProductInfoForm";
 import UploadPhotosForm from "./UploadPhotosForm";
 import { Navigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../../styleComponents/LoadingSpinner";
-import { useUser } from "../../hooks/useUser";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 // the global form that handle all the other sub forms
 const EditListing = () => {
-  // get information about current user from useUser hook
-  const user = useUser();
+  // get user information from current user context hook
+  const { user } = useContext(CurrentUserContext);
 
   const [formIndex, setFormIndex] = useState(1);
   const [progressBarValue, setProgressBarValue] = useState(0);

@@ -85,6 +85,7 @@ const FooterContainer = styled.footer`
   width: 100%;
   background-color: #000;
   height: 380px;
+  z-index: 11;
 
   @media screen and (max-width: 668px) {
     height: 100%;

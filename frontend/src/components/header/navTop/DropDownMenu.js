@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useNavigate, NavLink } from "react-router-dom";
 import useClickOutside from "../../hooks/useClickOutside";
 import { FiSettings, FiList, FiInbox } from "react-icons/fi";
 import { scrollToTop } from "../../../utils/utils";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const DropDownMenu = ({ setOpen }) => {
+  const { setUser } = useContext(CurrentUserContext);
+
   // hook to redirect the user to a specific page
   const navigate = useNavigate();
 
@@ -16,6 +19,7 @@ const DropDownMenu = ({ setOpen }) => {
 
   // function that handle redirecting the user to homepage when logout and clear local storage
   const logoutHandler = () => {
+    setUser(null);
     navigate("/");
     window.localStorage.clear();
   };

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Circles } from "react-loader-spinner";
-import { useUser } from "../components/hooks/useUser";
 import { fetchUserEmail } from "../utils/apiFetchFunctions";
 import userDefault from "../assets/user.png";
+import { CurrentUserContext } from "../components/context/CurrentUserContext";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
@@ -23,10 +23,11 @@ const Profile = () => {
 
   const [pictureLoading, setPictureLoading] = useState(false);
 
+  // using useNavigate hook to redirect user
   const navigate = useNavigate();
 
-  // get user info from useUser hook
-  const user = useUser();
+  // get user information from current user context hook
+  const { user } = useContext(CurrentUserContext);
 
   //fetch user email
   const { data: email } = useQuery(

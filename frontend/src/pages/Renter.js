@@ -6,13 +6,13 @@ import Item from "../components/Item";
 import Chat from "../components/chatSystem/Chat";
 import LoadingSpinner from "../components/styleComponents/LoadingSpinner";
 import { ChatContext } from "../components/context/ChatContext";
-import { useUser } from "../components/hooks/useUser";
+import { CurrentUserContext } from "../components/context/CurrentUserContext";
 
 const Renter = () => {
   const { openChat, setOpenChat } = useContext(ChatContext);
 
-  // get user information from useUser hook
-  const user = useUser();
+  // get user information from current user context hook
+  const { user } = useContext(CurrentUserContext);
 
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState();

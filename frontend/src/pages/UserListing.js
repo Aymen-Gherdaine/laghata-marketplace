@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 // import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { CurrentUserContext } from "../components/context/CurrentUserContext";
 import { CurrentUserListingContext } from "../components/context/CurrentUserListingContext";
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import { Circles } from "react-loader-spinner";
 import Dialog from "../components/styleComponents/Dialog";
 import { scrollToTop } from "../utils/utils";
-import { useUser } from "../components/hooks/useUser";
 
 const UserListing = () => {
   // getting informations from user listing context
@@ -18,7 +17,10 @@ const UserListing = () => {
     useContext(CurrentUserListingContext);
 
   // // get information about current user from useUser hook
-  const { _id: currentUserId } = useUser();
+  // const { _id: currentUserId } = useUser();
+
+  // get user information from current user context hook
+  const { user: currentUser } = useContext(CurrentUserContext);
 
   // state for search bar
   const [search, setSearch] = useState("");
@@ -37,9 +39,9 @@ const UserListing = () => {
     const getUserListing = async () => {
       setLoading(true);
 
-      if (currentUserId) {
+      if (currentUser?._id) {
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/renter-listing/${currentUserId}`
+          `${process.env.REACT_APP_BACKEND_URL}/api/renter-listing/${currentUser?._id}`
         );
 
         // parse the response received

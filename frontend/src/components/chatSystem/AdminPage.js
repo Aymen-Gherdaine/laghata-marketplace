@@ -2,15 +2,15 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Conversation from "../chatSystem/Conversation";
 import { ChatContext } from "../context/ChatContext";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 import { BiSend } from "react-icons/bi";
 import { Circles } from "react-loader-spinner";
-import { useUser } from "../hooks/useUser";
 
 const AdminPage = () => {
   const { socket, setNotification, notification } = useContext(ChatContext);
 
-  // get user info from useUser hook
-  const user = useUser();
+  // get user information from current user context hook
+  const { user } = useContext(CurrentUserContext);
 
   const [chatLoading, setChatLoading] = useState(false);
   const [chatConversation, setChatConversation] = useState([]);
@@ -180,9 +180,9 @@ const AdminPage = () => {
                 {currentChatConversation ? (
                   <>
                     <MsgDiv>
-                      {messages.map((message, index) => {
+                      {messages.map((message) => {
                         return (
-                          <MessageWrapper key={index}>
+                          <MessageWrapper key={message._id}>
                             {message.senderId !== user?._id ? (
                               <RightMsg key={message._id}>
                                 <MsgEl>{message.text}</MsgEl>

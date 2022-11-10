@@ -1,69 +1,31 @@
-import React, { useState } from "react";
-import { useNavigate, Navigate, NavLink } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useMutation } from "react-query";
+import { Navigate, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import logoBlack from "../../assets/logoBlack.png";
-import { useUser } from "../hooks/useUser";
 import { Circles } from "react-loader-spinner";
+import { loginUserHandler } from "../../utils/apiFetchFunctions";
+import { getPayloadFromToken } from "../../utils/utils";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const LogIn = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  // get information about current user from useUser hook
-  const user = useUser();
+  const { user, setUser } = useContext(CurrentUserContext);
 
-  const navigate = useNavigate();
+  // Login user function
+  const mutation = useMutation((userData) => loginUserHandler(userData), {
+    onSuccess: (token) => {
+      // set user state to the response
+      setUser(getPayloadFromToken(token));
+      // // store some information in local storage
+      localStorage.setItem("token", token);
 
-  // function that handle the login
-  const loginUserHandler = async (e) => {
-    e.preventDefault();
-
-    setLoading(true);
-
-    // check if there is an email & password
-    if (email && password) {
-      try {
-        const checkUserInfo = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/login`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: email,
-              password: password,
-            }),
-          }
-        );
-
-        const responseJson = await checkUserInfo.json();
-
-        if (responseJson.data) {
-          // store some information in local storage
-          localStorage.setItem("token", responseJson.data.token);
-
-          // using session storage to display the subscription modal just one per session
-          sessionStorage.setItem("showModalOnce", false);
-
-          setLoading(false);
-
-          navigate("/");
-        } else {
-          setError(true);
-
-          setLoading(false);
-        }
-      } catch (error) {
-        console.log(error.stack);
-        setError(true);
-        setLoading(false);
-      }
-    } else {
-      setError(true);
-      setLoading(false);
-    }
-  };
+      // using session storage to display the subscription modal just one per session
+      sessionStorage.setItem("showModalOnce", false);
+    },
+  });
 
   return (
     <LoginContainer>
@@ -71,7 +33,12 @@ const LogIn = () => {
         <Navigate to="/" />
       ) : (
         <RegistrationInfo>
-          <form onSubmit={loginUserHandler}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              mutation.mutate({ email, password });
+            }}
+          >
             <LogoContainer>
               <Logo src={logoBlack} alt="logoBlack" />
             </LogoContainer>
@@ -94,7 +61,7 @@ const LogIn = () => {
                 }}
                 required
               />
-              {error && (
+              {mutation.isError && (
                 <Span>Something went wrong check your email or password</Span>
               )}
             </InputsDiv>
@@ -104,7 +71,7 @@ const LogIn = () => {
               </NavLink>
             </RedirectForgotPassword>
             <Button type="submit">
-              {loading ? (
+              {mutation.isLoading ? (
                 <Circles
                   height="30"
                   width="30"
@@ -135,6 +102,7 @@ const LoginContainer = styled.div`
   min-height: 100vh;
   position: relative;
 `;
+
 const RegistrationInfo = styled.div`
   width: fit-content;
   padding: 50px;

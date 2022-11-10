@@ -7,6 +7,7 @@ import BookingContextProvider from "./components/context/BookingContext";
 import ChatContextProvider from "./components/context/ChatContext";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import CurrentUserContextProvider from "./components/context/CurrentUserContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -16,15 +17,16 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <ChatContextProvider>
-          <CurrentUserListingProvider>
-            <BookingContextProvider>
-              <App />
-
-              <ReactQueryDevtools initialIsOpen={false} />
-            </BookingContextProvider>
-          </CurrentUserListingProvider>
-        </ChatContextProvider>
+        <CurrentUserContextProvider>
+          <ChatContextProvider>
+            <CurrentUserListingProvider>
+              <BookingContextProvider>
+                <App />
+                <ReactQueryDevtools initialIsOpen={false} />
+              </BookingContextProvider>
+            </CurrentUserListingProvider>
+          </ChatContextProvider>
+        </CurrentUserContextProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>

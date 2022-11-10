@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import NavBottom from "./NavBottom";
 import RightNavigation from "./navTop/RightNavigation";
 import LeftNavigation from "./navTop/LeftNavigation";
-import { useUser } from "../hooks/useUser";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
 
-  // get user information useUser Hook
-  const user = useUser();
-  console.log(user);
+  // getting user information CurrentUserContext context
+  const { user } = useContext(CurrentUserContext);
+
   // toggle nav on click
   const toggleNav = () => {
     setToggleMenu(!toggleMenu);

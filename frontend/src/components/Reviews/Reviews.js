@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Review from "./Review";
 import ReviewForm from "./ReviewForm";
-import { useUser } from "../hooks/useUser";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const Reviews = ({ currentUserId, listingId, reviewsIds }) => {
-  // check if user is logged in if not he can see reviews but can't send one
-  const user = useUser();
+  // get user information from current user context hook
+  const { user } = useContext(CurrentUserContext);
+
   // state to store all comment or reviews that we get from backend
   const [reviews, setReviews] = useState([]);
 
@@ -49,6 +50,7 @@ const Reviews = ({ currentUserId, listingId, reviewsIds }) => {
             reviews={reviews}
             currentUserId={currentUserId}
             listingId={listingId}
+            user={user}
           />
         </>
       )}

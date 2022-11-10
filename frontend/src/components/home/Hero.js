@@ -6,7 +6,9 @@ const Hero = () => {
   return (
     <HeroBackground>
       <img src={home1} />
-      <h1>Great adventure equipement. Great times</h1>
+      <div>
+        <h1>Great adventure equipement. Great times</h1>
+      </div>
     </HeroBackground>
   );
 };
@@ -22,15 +24,21 @@ const HeroBackground = styled.div`
     object-fit: cover;
   }
 
-  h1 {
-    color: #f5f0ed;
-    font-size: 35px;
+  div {
     position: absolute;
-    top: 150px;
-    left: 50px;
-    text-transform: capitalize;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
-    animation-name: moveTitleFromLeft;
+  h1 {
+    color: #f5f9f8;
+    font-size: 45px;
+
+    text-transform: capitalize;
+    text-align: center;
+
+    animation-name: titleSlideInUp;
     animation-duration: 2s;
     animation-timing-function: ease-out;
   }

@@ -12,7 +12,7 @@ import { scrollToTop } from "../utils/utils";
 import Chat from "../components/chatSystem/Chat";
 import Reviews from "../components/Reviews/Reviews";
 import { ChatContext } from "../components/context/ChatContext";
-import { useUser } from "../components/hooks/useUser";
+import { CurrentUserContext } from "../components/context/CurrentUserContext";
 import {
   fetchListingById,
   fetchRenter,
@@ -24,8 +24,8 @@ const Listing = () => {
   // getting information from our chat context
   const { openChat, setOpenChat } = useContext(ChatContext);
 
-  // get user information from useUser hook
-  const user = useUser();
+  // get user information from current user context hook
+  const { user } = useContext(CurrentUserContext);
 
   // Get listing id from useParams hook (from url)
   const { id } = useParams();

@@ -1,13 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
 import { Circles } from "react-loader-spinner";
-import { useUser } from "../hooks/useUser";
 
-const ReviewForm = ({ setReviews, currentUserId, listingId, reviews }) => {
-  // get user information from useUser hook
-  const user = useUser();
-
+const ReviewForm = ({
+  setReviews,
+  currentUserId,
+  listingId,
+  reviews,
+  user,
+}) => {
   const [starHoverValue, setStarHoverValue] = useState(undefined);
 
   const [userReview, setUserReview] = useState({

@@ -49,10 +49,6 @@ const HomePage = styled.div`
       transform: translate(-100px);
     }
 
-    80% {
-      transform: translate(15px);
-    }
-
     100% {
       opacity: 1;
       transform: translate(0);
@@ -63,10 +59,6 @@ const HomePage = styled.div`
     0% {
       opacity: 0;
       transform: translate(100px);
-    }
-
-    80% {
-      transform: translate(-10px);
     }
 
     100% {
@@ -81,6 +73,29 @@ const HomePage = styled.div`
       visibility: visible;
     }
     100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes titleSlideInUp {
+    0% {
+      transform: translateY(100%);
+      visibility: visible;
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0.9;
+    }
+  }
+
+  @-webkit-keyframes titleSlideInUp {
+    0% {
+      transform: translateY(100%);
+      visibility: visible;
+      opacity: 0;
+    }
+    100% {
+      opacity: 0.9;
       transform: translateY(0);
     }
   }

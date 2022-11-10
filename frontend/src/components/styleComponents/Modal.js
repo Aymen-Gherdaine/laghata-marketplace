@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { VscClose } from "react-icons/vsc";
 import useClickOutside from "../hooks/useClickOutside";
 import useInput from "../hooks/useInput";
 import phoneCode from "../../assets/regEx";
-import { useUser } from "../hooks/useUser";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const Modal = () => {
-  // get user info from useUser hook
-  const user = useUser();
+  // get user information from current user context hook
+  const { user } = useContext(CurrentUserContext);
 
   const [modal, setModal] = useState(false);
   const [subscribe, setSubscribe] = useState(false);
@@ -80,7 +80,7 @@ const Modal = () => {
       setSubscribe(false);
       resetEmailInput();
       resetPhoneNumber();
-    }, 5000);
+    }, 10000);
 
     // window.clearTimeout(timeToShowModal);
     return () => clearTimeout(timeToShowModal);

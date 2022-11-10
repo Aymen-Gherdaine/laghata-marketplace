@@ -13,7 +13,6 @@ const RightNavigation = ({ setOpen, open, width, user }) => {
   const { notification, setNotification, openChat, setOpenChat } =
     useContext(ChatContext);
 
-  console.log(user);
   return (
     <RightNav>
       {user ? (

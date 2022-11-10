@@ -95,3 +95,22 @@ export const fetchAllCategoryListing = async (id) => {
 
   return responseJson.data;
 };
+
+// Login User
+export const loginUserHandler = async ({ email, password }) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/api/login`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    }
+  );
+
+  const responseJson = await response.json();
+
+  return responseJson?.data?.token;
+};
