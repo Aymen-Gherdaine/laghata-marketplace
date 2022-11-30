@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<testsuites>
+<testsuite name="Root Suite" timestamp="2022-11-23T00:22:57" tests="0" file="cypress\e2e\loginTest.cy.js" time="0.000" failures="0"></testsuite>
+<testsuite name="Testing the login and intersepting the login response from our api" timestamp="2022-11-23T00:22:57" tests="1" time="16.455" failures="0">
+  
+  <testcase name="Testing the login and intersepting the login response from our api log in" time="15.071" classname="log in"></testcase>
+  
+</testsuite>
+
+<testsuite name="Root Suite" timestamp="2022-11-23T00:22:05" tests="0" file="cypress\e2e\firstTest.cy.js" time="0.000" failures="0"></testsuite>
+<testsuite name="Our First Test Suite" timestamp="2022-11-23T00:22:05" tests="1" time="15.106" failures="0">
+  
+  <testcase name="Our First Test Suite first test" time="13.224" classname="first test"></testcase>
+  
+</testsuite>
+
+</testsuites>

@@ -5,3 +5,8 @@ node_modules/
 # Environments
 .env
 .env.production
+
+# Testing
+/cypress/videos
+/cypress/screenshots
+cypress.env.json

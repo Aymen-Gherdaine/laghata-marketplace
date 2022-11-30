@@ -1,0 +1,106 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2022-11-23T00:22:05.092Z",
+    "end": "2022-11-23T00:22:20.358Z",
+    "duration": 15266,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "dd7eaf9d-775b-477f-a8ed-75ab48ed4621",
+      "title": "",
+      "fullFile": "cypress\\e2e\\firstTest.cy.js",
+      "file": "cypress\\e2e\\firstTest.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e805acd2-0fc4-4b5c-bd3d-c0d84458d672",
+          "title": "Our First Test Suite",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "first test",
+              "fullTitle": "Our First Test Suite first test",
+              "timedOut": null,
+              "duration": 13224,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(\"/\");\ncy.contains(\"Choose from our lagre collection\").parent('[class=\"sc-bZkfAO KtxoR\"]').find(\"a\").contains(\"a\", \"Mountain bike\");\ncy.get('[href=\"/category/snow\"]');",
+              "err": {},
+              "uuid": "82ed6146-a786-41a7-93be-f4f55d04b04a",
+              "parentUUID": "e805acd2-0fc4-4b5c-bd3d-c0d84458d672",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "82ed6146-a786-41a7-93be-f4f55d04b04a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 13224,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

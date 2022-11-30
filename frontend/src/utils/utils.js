@@ -30,3 +30,28 @@ export const getPayloadFromToken = (token) => {
   const user = JSON.parse(Buffer.from(encodedPayload, "base64"));
   return user?.data;
 };
+
+// post pictures to cloudinary
+export const postPictureToCloudinary = async (pictures, setPicture) => {
+  if (pictures.type === "image/jpeg" || pictures.type === "image/png") {
+    const data = new FormData();
+    data.append("file", pictures);
+    data.append("upload_preset", "laghata-app");
+    data.append("cloud_name", "laghata");
+
+    try {
+      const postPicture = await fetch(
+        `${process.env.REACT_APP_CLOUDINARY_url}`,
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const responseJson = await postPicture.json();
+
+      setPicture(responseJson.secure_url.toString());
+    } catch (error) {
+      console.log(error.stack);
+    }
+  }
+};

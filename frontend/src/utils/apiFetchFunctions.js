@@ -114,3 +114,41 @@ export const loginUserHandler = async ({ email, password }) => {
 
   return responseJson?.data?.token;
 };
+
+// Register New User
+export const registerUserHandler = async ({
+  username,
+  email,
+  password,
+  picture,
+}) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/api/signup`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+        picture: picture,
+      }),
+    }
+  );
+
+  const responseJson = await response.json();
+
+  return responseJson?.data?.token;
+};
+
+// function that handle the fetch of all user listing
+export const getUserListing = async (currentUser) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/api/renter-listing/${currentUser?._id}`
+  );
+
+  // parse the response received
+  const responseJson = await response.json();
+
+  return responseJson?.data;
+};

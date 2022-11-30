@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
 import logoBlack from "../../assets/logoBlack.png";
-import { scrollToTop } from "../../utils/utils";
+import {
+  scrollToTop,
+  getPayloadFromToken,
+  postPictureToCloudinary,
+} from "../../utils/utils";
+import { registerUserHandler } from "../../utils/apiFetchFunctions";
 import { Circles } from "react-loader-spinner";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const SignUp = () => {
   const [picture, setPicture] = useState();
@@ -11,101 +18,55 @@ const SignUp = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-  const [success, setSuccess] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
+  const { setUser } = useContext(CurrentUserContext);
+
+  // registration handler
+  const register = useMutation((userData) => registerUserHandler(userData), {
+    onSuccess: (token) => {
+      // set user state to the response
+      setUser(getPayloadFromToken(token));
+
+      // // store some information in local storage
+      localStorage.setItem("token", token);
+
+      // using session storage to display the subscription modal just one per session
+      sessionStorage.setItem("showModalOnce", false);
+    },
+  });
+
   // send the user to the home page after has been signing in
   useEffect(() => {
-    if (success) {
+    if (register.isSuccess) {
       setTimeout(() => {
         navigate("/");
         scrollToTop();
       }, 5000);
     }
-  }, [success]);
+  }, [register.isSuccess]);
 
-  // post pictures to cloudinary
-  const postPictureToCloudinary = async (pictures) => {
-    if (pictures.type === "image/jpeg" || pictures.type === "image/png") {
-      const data = new FormData();
-      data.append("file", pictures);
-      data.append("upload_preset", "laghata-app");
-      data.append("cloud_name", "laghata");
-
-      try {
-        const postPicture = await fetch(
-          `${process.env.REACT_APP_CLOUDINARY_url}`,
-          {
-            method: "POST",
-            body: data,
-          }
-        );
-        const responseJson = await postPicture.json();
-
-        await setPicture(responseJson.secure_url.toString());
-      } catch (error) {
-        console.log(error.stack);
-      }
-    }
-  };
-
-  // registration handler
-  const registerUserHandler = async (e) => {
-    e.preventDefault();
-
-    setLoading(true);
-
-    if (password.toLowerCase() !== confirmPassword.toLowerCase()) {
-      return;
-    } else {
-      // POST info to server
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: username,
-          email: email,
-          password: password,
-          picture: picture,
-        }),
-      };
-
-      // function that handle the post of data to db
-      const postData = async () => {
-        try {
-          const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_URL}/api/signup`,
-            requestOptions
-          );
-          const responseJson = await response.json();
-
-          if (responseJson.status === 201) {
-            // store some information in local storage
-            localStorage.setItem("token", responseJson.data.token);
-
-            setSuccess(true);
-            setLoading(false);
-          } else {
-            setLoading(false);
-          }
-        } catch (error) {
-          console.log(error.message);
-          setLoading(false);
-        }
-      };
-      postData();
-    }
-  };
   return (
     <SignUpContainer>
       <RegistrationInfo>
-        <form onSubmit={registerUserHandler}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (password.toLowerCase() === confirmPassword.toLowerCase()) {
+              register.mutate({
+                username,
+                email,
+                password,
+                picture,
+              });
+            }
+          }}
+        >
           <LogoContainer>
             <Logo src={logoBlack} alt="logoBlack" />
           </LogoContainer>
-          {success ? (
+          {register.isSuccess ? (
             <>
               <TitleSuccess>Thanks for signing Up!</TitleSuccess>
               <Message>
@@ -156,7 +117,7 @@ const SignUp = () => {
                   id="file"
                   accept="/image/*"
                   onChange={(e) => {
-                    postPictureToCloudinary(e.target.files[0]);
+                    postPictureToCloudinary(e.target.files[0], setPicture);
                   }}
                 />
                 <Label htmlFor="file">Choose a picture</Label>
@@ -167,7 +128,7 @@ const SignUp = () => {
                 </ImgContainer>
               )}
               <Button type="submit" onClick={() => scrollToTop()}>
-                {loading ? (
+                {register.isLoading ? (
                   <Circles
                     height="30"
                     width="30"
@@ -180,6 +141,9 @@ const SignUp = () => {
                   "Register"
                 )}
               </Button>
+              {register.isError && (
+                <ErrorMsg id="errorMsg">You already have an account</ErrorMsg>
+              )}
             </>
           )}
         </form>
@@ -192,6 +156,7 @@ const SignUp = () => {
 const SignUpContainer = styled.div`
   min-height: 100vh;
 `;
+
 const RegistrationInfo = styled.div`
   max-width: 70%;
   width: fit-content;
@@ -327,5 +292,12 @@ const Img = styled.img`
   height: 90px;
   width: 90px;
   border-radius: 50%;
+`;
+
+const ErrorMsg = styled.span`
+  display: block;
+  color: #cc0000;
+  font-weight: 500;
+  text-align: center;
 `;
 export default SignUp;

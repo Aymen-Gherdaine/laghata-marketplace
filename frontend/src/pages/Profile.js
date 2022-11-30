@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Circles } from "react-loader-spinner";
 import { fetchUserEmail } from "../utils/apiFetchFunctions";
+import { postPictureToCloudinary } from "../utils/utils";
 import userDefault from "../assets/user.png";
 import { CurrentUserContext } from "../components/context/CurrentUserContext";
 

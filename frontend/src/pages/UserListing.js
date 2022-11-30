@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { useState, useEffect, useContext } from "react";
-// import { useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import { CurrentUserContext } from "../components/context/CurrentUserContext";
 import { CurrentUserListingContext } from "../components/context/CurrentUserListingContext";
@@ -10,14 +9,14 @@ import { MdDelete } from "react-icons/md";
 import { Circles } from "react-loader-spinner";
 import Dialog from "../components/styleComponents/Dialog";
 import { scrollToTop } from "../utils/utils";
+import { getUserListing } from "../utils/apiFetchFunctions";
+import Search from "../components/Search";
 
 const UserListing = () => {
   // getting informations from user listing context
-  const { userListing, setUserListing, deleteHandler, loading, setLoading } =
-    useContext(CurrentUserListingContext);
-
-  // // get information about current user from useUser hook
-  // const { _id: currentUserId } = useUser();
+  const { userListing, setUserListing, deleteHandler } = useContext(
+    CurrentUserListingContext
+  );
 
   // get user information from current user context hook
   const { user: currentUser } = useContext(CurrentUserContext);
@@ -28,53 +27,27 @@ const UserListing = () => {
   // state for opening the delete dialog
   const [openDialog, setOpenDialog] = useState(false);
 
-  // getting the value of the search and put it in the search state
-  const searchProduct = (event) => {
-    setSearch(event.target.value);
-  };
-
   // fetch user listing from database
-  useEffect(() => {
-    // function that handle the fetch of all user listing
-    const getUserListing = async () => {
-      setLoading(true);
-
-      if (currentUser?._id) {
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/renter-listing/${currentUser?._id}`
-        );
-
-        // parse the response received
-        const responseJson = await response.json();
-
-        if (responseJson) {
-          setUserListing(responseJson.data);
-          setLoading(false);
-        }
-      } else {
-        setLoading(false);
-      }
-    };
-    getUserListing();
-  }, []);
+  const { isLoading } = useQuery(
+    ["currentUserId", currentUser?.id],
+    () => getUserListing(currentUser),
+    {
+      onSuccess: (data) => setUserListing(data),
+    }
+  );
 
   return (
     <UserListingContainerPage>
       <UserListingContainer>
         <Title>Your Listing</Title>
-        <SearchBar>
-          <Input
-            type="text"
-            placeholder="Search for a listing title"
-            value={search}
-            onChange={searchProduct}
-          />
-        </SearchBar>
+
+        <Search search={search} setSearch={setSearch} />
+
         <ListingContainer>
-          {loading ? (
+          {isLoading ? (
             <Circles
-              height="80"
-              width="80"
+              height="50"
+              width="50"
               color="#252627"
               ariaLabel="circles-loading"
               wrapperClass="spinner"

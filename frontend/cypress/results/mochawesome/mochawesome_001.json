@@ -1,0 +1,106 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2022-11-23T00:22:57.797Z",
+    "end": "2022-11-23T00:23:14.347Z",
+    "duration": 16550,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "bf50d4ec-537f-4ce2-aed8-eb740fab3ebe",
+      "title": "",
+      "fullFile": "cypress\\e2e\\loginTest.cy.js",
+      "file": "cypress\\e2e\\loginTest.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "10f89df0-c37b-4e73-9684-24c6d2db8fb9",
+          "title": "Testing the login and intersepting the login response from our api",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "log in",
+              "fullTitle": "Testing the login and intersepting the login response from our api log in",
+              "timedOut": null,
+              "duration": 15071,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.intercept(\"POST\", Cypress.env(\"apiUrl\") + \"/api/login\").as(\"userLogin\");\ncy.loginToApplication();\ncy.wait(\"@userLogin\").then(fetchResponse => {\n  expect(fetchResponse.response.body.status).to.equal(200);\n  expect(fetchResponse.response.body.message).to.equal(\"User Logged in\");\n  expect(fetchResponse.response.body.data.token).to.exist;\n});",
+              "err": {},
+              "uuid": "82550d05-197f-4172-b1d9-c7f427adf6cc",
+              "parentUUID": "10f89df0-c37b-4e73-9684-24c6d2db8fb9",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "82550d05-197f-4172-b1d9-c7f427adf6cc"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 15071,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

@@ -15,7 +15,7 @@ const LogIn = () => {
   const { user, setUser } = useContext(CurrentUserContext);
 
   // Login user function
-  const mutation = useMutation((userData) => loginUserHandler(userData), {
+  const login = useMutation((userData) => loginUserHandler(userData), {
     onSuccess: (token) => {
       // set user state to the response
       setUser(getPayloadFromToken(token));
@@ -36,7 +36,7 @@ const LogIn = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              mutation.mutate({ email, password });
+              login.mutate({ email, password });
             }}
           >
             <LogoContainer>
@@ -61,8 +61,10 @@ const LogIn = () => {
                 }}
                 required
               />
-              {mutation.isError && (
-                <Span>Something went wrong check your email or password</Span>
+              {login.isError && (
+                <ErrorMsg>
+                  Something went wrong check your email or password
+                </ErrorMsg>
               )}
             </InputsDiv>
             <RedirectForgotPassword>
@@ -71,7 +73,7 @@ const LogIn = () => {
               </NavLink>
             </RedirectForgotPassword>
             <Button type="submit">
-              {mutation.isLoading ? (
+              {login.isLoading ? (
                 <Circles
                   height="30"
                   width="30"
@@ -189,7 +191,7 @@ const Button = styled.button`
   }
 `;
 
-const Span = styled.span`
+const ErrorMsg = styled.span`
   color: #cc0000;
   padding-left: 15px;
   max-width: 350px;
