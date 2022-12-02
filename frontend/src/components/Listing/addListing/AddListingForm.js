@@ -62,35 +62,30 @@ const AddListingForm = () => {
   return (
     <>
       {user ? (
-        <MultiFormWrapper>
-          <MultiFormContainer>
-            <Indicator progressBarValue={progressBarValue} />
-            {formIndex === 1 ? (
-              <CardBegin modifyIndex={modifyIndex} />
-            ) : formIndex === 2 ? (
-              <CategoryForm
-                modifyIndex={modifyIndex}
-                listingData={listingData}
-              />
-            ) : formIndex === 3 ? (
-              <ProductInfoForm
-                modifyIndex={modifyIndex}
-                handleReturn={handleReturn}
-                listingData={listingData}
-              />
-            ) : formIndex === 4 ? (
-              <UploadPhotosForm
-                modifyIndex={modifyIndex}
-                handleReturn={handleReturn}
-                listingData={listingData}
-              />
-            ) : formIndex === 5 ? (
-              <CardEnd listingData={listingData} handleReturn={handleReturn} />
-            ) : (
-              ""
-            )}
-          </MultiFormContainer>
-        </MultiFormWrapper>
+        <MultiFormContainer>
+          <Indicator progressBarValue={progressBarValue} />
+          {formIndex === 1 ? (
+            <CardBegin modifyIndex={modifyIndex} />
+          ) : formIndex === 2 ? (
+            <CategoryForm modifyIndex={modifyIndex} listingData={listingData} />
+          ) : formIndex === 3 ? (
+            <ProductInfoForm
+              modifyIndex={modifyIndex}
+              handleReturn={handleReturn}
+              listingData={listingData}
+            />
+          ) : formIndex === 4 ? (
+            <UploadPhotosForm
+              modifyIndex={modifyIndex}
+              handleReturn={handleReturn}
+              listingData={listingData}
+            />
+          ) : formIndex === 5 ? (
+            <CardEnd listingData={listingData} handleReturn={handleReturn} />
+          ) : (
+            ""
+          )}
+        </MultiFormContainer>
       ) : (
         <>
           <Navigate to="/login" />
@@ -101,12 +96,8 @@ const AddListingForm = () => {
 };
 
 // Multiform style
-const MultiFormWrapper = styled.div`
-  min-height: 100vh;
-  position: relative;
-`;
-
 const MultiFormContainer = styled.div`
+  min-height: 100vh;
   max-width: 700px;
   background: #f5f5f3;
   margin: 200px auto 0;
