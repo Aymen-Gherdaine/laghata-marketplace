@@ -7,7 +7,9 @@ const Hero = () => {
     <HeroBackground>
       <img src={home1} />
       <div>
-        <h1>Great adventure equipement. Great times</h1>
+        <h1>
+          Gear up for extraordinary journeys. Unleash unforgettable moments.
+        </h1>
       </div>
     </HeroBackground>
   );
