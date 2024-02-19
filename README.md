@@ -28,7 +28,7 @@ npm install
 ## Create .env File
 Create a .env file in the frontend folder and add the following configuration:
 
-#### env
+#### .env
 ```
 REACT_APP_SERVER_PORT=your_frontend_port
 CLOUDINARY_URL=your_cloudinary_url
@@ -41,7 +41,7 @@ Replace your_frontend_port and your_cloudinary_url with your desired values.
 npm start
 ```
 
-###Backend Setup
+### Backend Setup
 Navigate to the Backend Folder
 ```
 cd ../backend
